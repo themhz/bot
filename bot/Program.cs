@@ -63,23 +63,8 @@ namespace bot
                     switch (searchResult.Id.Kind)
                     {
                         case "youtube#video":
-                            videos.Add(String.Format("{0} ({1}) url:{2}", searchResult.Snippet.Title, searchResult.Id.VideoId, "https://www.youtube.com/watch?v=" + searchResult.Id.VideoId));
-
-                            var source = @"C:\Users\themis\Downloads\music\";
-                            var youtube = YouTube.Default;
-                            var vid = youtube.GetVideo("https://www.youtube.com/watch?v=" + searchResult.Id.VideoId);
-                            File.WriteAllBytes(source + vid.FullName, vid.GetBytes());
-
-                            var inputFile = new MediaFile { Filename = source + vid.FullName };
-                            var outputFile = new MediaFile { Filename = $"{source + vid.FullName}.mp3" };
-
-                            using (var engine = new Engine())
-                            {
-                                engine.GetMetadata(inputFile);
-
-                                engine.Convert(inputFile, outputFile);
-                            }
-
+                            //videos.Add(String.Format("{0} ({1}) url:{2}", searchResult.Snippet.Title, searchResult.Id.VideoId, "https://www.youtube.com/watch?v=" + searchResult.Id.VideoId));                            
+                            videos.Add("https://www.youtube.com/watch?v=" + searchResult.Id.VideoId);
                             break;
 
                         case "youtube#channel":
@@ -92,13 +77,46 @@ namespace bot
                     }
                 }
 
-                Console.WriteLine(String.Format("Videos:\n{0}\n", string.Join("\n", videos)));
+                //Console.WriteLine(String.Format("Videos:\n{0}\n", string.Join("\n", videos)));
+                Console.WriteLine("fetching videos.. please wait");
+                var source = @"c:\Users\themhz\Music\new\";
+                var youtube = YouTube.Default;
+                foreach (var video in videos)
+                {
+                                       
+                    try
+                    {
+                        var vid = youtube.GetVideo(video);
+                        Console.WriteLine("Fetching "+ video);
+                        File.WriteAllBytes(source + vid.FullName, vid.GetBytes());
+
+                        var inputFile = new MediaFile { Filename = source + vid.FullName };
+                        var outputFile = new MediaFile { Filename = $"{source + vid.FullName}.mp3" };
+
+                        using (var engine = new Engine())
+                        {
+                            engine.GetMetadata(inputFile);
+
+                            engine.Convert(inputFile, outputFile);
+                        }
+
+                        Console.WriteLine("Completed ");
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine("error fetching " + video + "   moving to next video..");
+                        //continue;
+                    }
+                    
+                }
                 //Console.WriteLine(String.Format("Channels:\n{0}\n", string.Join("\n", channels)));
                 //Console.WriteLine(String.Format("Playlists:\n{0}\n", string.Join("\n", playlists)));            
             }
             catch (Exception e)
             {
                 Console.WriteLine("Some exception occured" + e);
+
+                
             }
         }
 
