@@ -21,3 +21,7 @@ C:\Users\themis\source\repos\bot\bot\bin\Debug\net5.0\Google.Apis.Core.dll
 C:\Users\themis\source\repos\bot\bot\bin\Debug\net5.0\Google.Apis.YouTube.v3.dll
 C:\Users\themis\source\repos\bot\bot\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\themis\source\repos\bot\bot\obj\Debug\net5.0\bot.csproj.CopyComplete
+C:\Users\themis\source\repos\bot\bot\bin\Debug\net5.0\Plugin.Media.dll
+C:\Users\themis\source\repos\bot\bot\bin\Debug\net5.0\Xamarin.Essentials.dll
+C:\Users\themis\source\repos\bot\bot\bin\Debug\net5.0\NiL.JS.dll
+C:\Users\themis\source\repos\bot\bot\bin\Debug\net5.0\libvideo.dll

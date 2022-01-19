@@ -1,9 +1,12 @@
 ﻿using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
-using Google.Apis.YouTube.v3.Data;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using VideoLibrary;
+using MediaToolkit;
+using MediaToolkit.Model;
 
 namespace bot
 {
@@ -61,6 +64,22 @@ namespace bot
                     {
                         case "youtube#video":
                             videos.Add(String.Format("{0} ({1}) url:{2}", searchResult.Snippet.Title, searchResult.Id.VideoId, "https://www.youtube.com/watch?v=" + searchResult.Id.VideoId));
+
+                            var source = @"C:\Users\themis\Downloads\music\";
+                            var youtube = YouTube.Default;
+                            var vid = youtube.GetVideo("https://www.youtube.com/watch?v=" + searchResult.Id.VideoId);
+                            File.WriteAllBytes(source + vid.FullName, vid.GetBytes());
+
+                            var inputFile = new MediaFile { Filename = source + vid.FullName };
+                            var outputFile = new MediaFile { Filename = $"{source + vid.FullName}.mp3" };
+
+                            using (var engine = new Engine())
+                            {
+                                engine.GetMetadata(inputFile);
+
+                                engine.Convert(inputFile, outputFile);
+                            }
+
                             break;
 
                         case "youtube#channel":

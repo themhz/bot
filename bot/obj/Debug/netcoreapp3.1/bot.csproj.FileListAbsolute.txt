@@ -1,0 +1,5 @@
+C:\Users\themis\source\repos\bot\bot\obj\Debug\netcoreapp3.1\bot.csproj.AssemblyReference.cache
+C:\Users\themis\source\repos\bot\bot\obj\Debug\netcoreapp3.1\bot.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\themis\source\repos\bot\bot\obj\Debug\netcoreapp3.1\bot.AssemblyInfoInputs.cache
+C:\Users\themis\source\repos\bot\bot\obj\Debug\netcoreapp3.1\bot.AssemblyInfo.cs
+C:\Users\themis\source\repos\bot\bot\obj\Debug\netcoreapp3.1\bot.csproj.CoreCompileInputs.cache
