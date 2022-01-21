@@ -18,107 +18,12 @@ namespace bot
         [STAThread]
         static void Main(string[] args)
         {
-            //call1();
-            
-            Console.WriteLine("YouTube Data API: Search");
-            Console.WriteLine("========================");
-
-            try
-            {
-                new Program().Run().Wait();
-            }
-            catch (AggregateException ex)
-            {
-                foreach (var e in ex.InnerExceptions)
-                {
-                    Console.WriteLine("Error: " + e.Message);
-                }
-            }
-
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
+            //var directory = @"c:\Users\themhz\Music\new\";
+            var directory = @"C:\Users\themis\Music\";
+            YouTubeMp3 ytmp3 = new YouTubeMp3("AIzaSyCkUxp6ucqJa - 18XS19iv8q46lKHSQzfIA", directory, "boxing music");            
+            ytmp3.Execute();
         }
-        async Task Run()
-        {
-            try
-            {
-                //var yt = new YouTubeService(new BaseClientService.Initializer() { ApiKey = "AIzaSyCT8kXaxJ2l29vYg4HBdYy36H-PhAH-Teg" });
-                var yt = new YouTubeService(new BaseClientService.Initializer() { ApiKey = "AIzaSyCkUxp6ucqJa - 18XS19iv8q46lKHSQzfIA" });
-
-                var searchListRequest = yt.Search.List("snippet");
-                searchListRequest.Q = "boxing music"; // Replace with your search term.
-                searchListRequest.MaxResults = 50;
-
-                // Call the search.list method to retrieve results matching the specified query term.
-                var searchListResponse = await searchListRequest.ExecuteAsync();
-
-                List<string> videos = new List<string>();
-                List<string> channels = new List<string>();
-                List<string> playlists = new List<string>();
-
-                // Add each result to the appropriate list, and then display the lists of
-                // matching videos, channels, and playlists.
-                foreach (var searchResult in searchListResponse.Items)
-                {
-                    switch (searchResult.Id.Kind)
-                    {
-                        case "youtube#video":
-                            //videos.Add(String.Format("{0} ({1}) url:{2}", searchResult.Snippet.Title, searchResult.Id.VideoId, "https://www.youtube.com/watch?v=" + searchResult.Id.VideoId));                            
-                            videos.Add("https://www.youtube.com/watch?v=" + searchResult.Id.VideoId);
-                            break;
-
-                        case "youtube#channel":
-                            channels.Add(String.Format("{0} ({1})", searchResult.Snippet.Title, searchResult.Id.ChannelId));
-                            break;
-
-                        case "youtube#playlist":
-                            playlists.Add(String.Format("{0} ({1})", searchResult.Snippet.Title, searchResult.Id.PlaylistId));
-                            break;
-                    }
-                }
-
-                //Console.WriteLine(String.Format("Videos:\n{0}\n", string.Join("\n", videos)));
-                Console.WriteLine("fetching videos.. please wait");
-                var source = @"c:\Users\themhz\Music\new\";
-                var youtube = YouTube.Default;
-                foreach (var video in videos)
-                {
-                                       
-                    try
-                    {
-                        var vid = youtube.GetVideo(video);
-                        Console.WriteLine("Fetching "+ video);
-                        File.WriteAllBytes(source + vid.FullName, vid.GetBytes());
-
-                        var inputFile = new MediaFile { Filename = source + vid.FullName };
-                        var outputFile = new MediaFile { Filename = $"{source + vid.FullName}.mp3" };
-
-                        using (var engine = new Engine())
-                        {
-                            engine.GetMetadata(inputFile);
-
-                            engine.Convert(inputFile, outputFile);
-                        }
-
-                        Console.WriteLine("Completed ");
-                    }
-                    catch(Exception e)
-                    {
-                        Console.WriteLine("error fetching " + video + "   moving to next video..");
-                        //continue;
-                    }
-                    
-                }
-                //Console.WriteLine(String.Format("Channels:\n{0}\n", string.Join("\n", channels)));
-                //Console.WriteLine(String.Format("Playlists:\n{0}\n", string.Join("\n", playlists)));            
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Some exception occured" + e);
-
-                
-            }
-        }
+        
 
         static void call1()
         {

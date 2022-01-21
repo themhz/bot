@@ -1,24 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\themhz\\Documents\\Projects\\bot\\bot\\bot.csproj": {}
+    "C:\\Users\\themis\\source\\repos\\bot\\bot\\bot.csproj": {}
   },
   "projects": {
-    "C:\\Users\\themhz\\Documents\\Projects\\bot\\bot\\bot.csproj": {
+    "C:\\Users\\themis\\source\\repos\\bot\\bot\\bot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\themhz\\Documents\\Projects\\bot\\bot\\bot.csproj",
+        "projectUniqueName": "C:\\Users\\themis\\source\\repos\\bot\\bot\\bot.csproj",
         "projectName": "bot",
-        "projectPath": "C:\\Users\\themhz\\Documents\\Projects\\bot\\bot\\bot.csproj",
-        "packagesPath": "C:\\Users\\themhz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\themhz\\Documents\\Projects\\bot\\bot\\obj\\",
+        "projectPath": "C:\\Users\\themis\\source\\repos\\bot\\bot\\bot.csproj",
+        "packagesPath": "C:\\Users\\themis\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\themis\\source\\repos\\bot\\bot\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\themhz\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\themis\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,7 +60,7 @@
               "version": "[5.0.1, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
