@@ -86,60 +86,10 @@ namespace bot
 
             }
         }
-
-        public YouTubeVideo getVideo(String video)
+        async Task startTheSearch()
         {
-            return YouTube.Default.GetVideo(video);
-        }
-        public void convertToMp3()
-        {            
-            foreach (var video in this.videoResults)
-            {
-
-                try
-                {
-                    Console.WriteLine("converting to mp3,  " + video);
-                    var vid = this.getVideo(video);
-                    
-                    var inputFile = new MediaFile { Filename = this.filePathToSaveMp3 + vid.FullName };
-                    var outputFile = new MediaFile { Filename = $"{this.filePathToSaveMp3 + vid.FullName}.mp3" };
-
-                    using (var engine = new Engine())
-                    {
-                        engine.GetMetadata(inputFile);
-
-                        engine.Convert(inputFile, outputFile);
-                    }
-
-                    Console.WriteLine("Completed ");
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("error fetching " + video + "   moving to next video..");                    
-                }
-
-            }
-        }
-        public void copyVideosOnDisk()
-        {
-            foreach (var video in this.videoResults)
-            {
-
-                try
-                {
-                    Console.WriteLine("Fetching " + video);
-                    var vid = this.getVideo(video);                    
-                    File.WriteAllBytes(this.filePathToSaveMp3 + vid.FullName, vid.GetBytes());                    
-
-                    Console.WriteLine("Completed ");
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("error fetching " + video + "   moving to next video..");
-                    //continue;
-                }
-
-            }
+            // Call the search.list method to retrieve results matching the specified query term.
+            this.searchListResponse = await searchListRequest.ExecuteAsync();
         }
         public List<string> getResult()
         {
@@ -154,12 +104,90 @@ namespace bot
 
             return this.videoResults;
         }
-
-        async Task startTheSearch()
+        public void copyVideosOnDisk()
         {
-            // Call the search.list method to retrieve results matching the specified query term.
-            this.searchListResponse = await searchListRequest.ExecuteAsync();
+            foreach (var video in this.videoResults)
+            {
+
+                try
+                {
+                    Console.WriteLine("Fetching " + video);
+                    var vid = YouTube.Default.GetVideo(video);
+                    File.WriteAllBytes(this.filePathToSaveMp3 + vid.FullName, vid.GetBytes());
+
+                    Console.WriteLine("Completed ");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("error fetching " + video + "   moving to next video..");
+                    //continue;
+                }
+
+            }
         }
+        public void convertToMp3()
+        {
+            foreach (var video in this.videoResults)
+            {
+
+                try
+                {
+                    Console.WriteLine("converting to mp3,  " + video);
+                    var vid = YouTube.Default.GetVideo(video);
+
+                    var inputFile = new MediaFile { Filename = this.filePathToSaveMp3 + vid.FullName };
+                    var outputFile = new MediaFile { Filename = $"{this.filePathToSaveMp3 + vid.FullName}.mp3" };
+
+                    using (var engine = new Engine())
+                    {
+                        engine.GetMetadata(inputFile);
+
+                        engine.Convert(inputFile, outputFile);
+                    }
+
+                    Console.WriteLine("Completed ");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("error fetching " + video + "   moving to next video..");
+                }
+
+            }
+        }
+        public void getVideo(String video)
+        {            
+            try
+            {
+                Console.WriteLine("Fetching " + video);
+                var vid = YouTube.Default.GetVideo(video);
+                File.WriteAllBytes(this.filePathToSaveMp3 + vid.FullName, vid.GetBytes());
+
+                Console.WriteLine("Completed ");
+
+                Console.WriteLine("converting to mp3,  " + video);                
+
+                var inputFile = new MediaFile { Filename = this.filePathToSaveMp3 + vid.FullName };
+                var outputFile = new MediaFile { Filename = $"{this.filePathToSaveMp3 + vid.FullName}.mp3" };
+
+                using (var engine = new Engine())
+                {
+                    engine.GetMetadata(inputFile);
+
+                    engine.Convert(inputFile, outputFile);
+                }
+
+                Console.WriteLine("Completed ");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("error fetching " + video + "   moving to next video..");
+            }
+        }
+      
+        
+        
+
+        
 
     }
 }
